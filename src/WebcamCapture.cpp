@@ -1,7 +1,3 @@
-//
-// Created by morzharetto on 4/6/19.
-//
-
 #include "WebcamCapture.h"
 
 /*void BindCVMat2GLTexture(cv::Mat& image, GLuint& imageTexture)
@@ -44,4 +40,5 @@ WebcamCapture::WebcamCapture() {
 
 void WebcamCapture::captureFrame(cv::Mat &frame) {
     capture >> frame;
+    cv::flip(frame, frame, 0);
 }
