@@ -11,12 +11,12 @@ class WebcamCapture {
 
 private:
     cv::VideoCapture capture;
-
 public:
     void captureFrame(cv::Mat &frame);
     WebcamCapture();
 
 };
+
 
 
 #endif //OPENCV_LAB_WEBCAMCAPTURE_H
