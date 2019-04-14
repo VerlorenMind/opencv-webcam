@@ -1,13 +1,7 @@
-
-#include <WebcamOutput.h>
-
 #include "WebcamOutput.h"
 
-void BindCVMat2GLTexture(cv::Mat& image, GLuint& imageTexture)
-{
-    if(image.empty()) {
-        std::cout << "image empty" << std::endl;
-    } else {
+void BindCVMat2GLTexture(cv::Mat& image, GLuint& imageTexture) {
+    if(!image.empty()) {
         glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
         glGenTextures(1, &imageTexture);
         glBindTexture(GL_TEXTURE_2D, imageTexture);
@@ -40,6 +34,15 @@ WebcamOutput::WebcamOutput(ViewportRectangle port) {
     this->port = port;
 
     glGenFramebuffers(1, &readFboId);
+
+    BrightnessContrastImageEffect *brightness = new BrightnessContrastImageEffect();
+    GaussianFilterImageEffect *gaussianFilter = new GaussianFilterImageEffect();
+    ErosionImageEffect *erosion = new ErosionImageEffect();
+    DilationImageEffect *dilation = new DilationImageEffect();
+    effects.enable(brightness);
+    effects.enable(gaussianFilter);
+    effects.enable(erosion);
+    effects.enable(dilation);
 }
 
 void WebcamOutput::setViewport(ViewportRectangle port) {
@@ -54,6 +57,9 @@ void WebcamOutput::draw() {
     capture.captureFrame(frame);
 
     cv::flip(frame, frame, 0);
+
+
+    this->effects.applyEffects(frame);
 
     /* Draw */
 
@@ -70,6 +76,7 @@ void WebcamOutput::draw() {
 
 WebcamOutput::~WebcamOutput() {
     glDeleteFramebuffers(1, &readFboId);
+    delete program;
 }
 
 

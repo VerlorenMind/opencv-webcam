@@ -23,7 +23,11 @@ add_executable(opencv_lab src/main.cpp
         include/Logger.h src/Logger.cpp
         include/LoggerInit.h
         include/MainWindow.h
-        src/MainWindow.cpp include/WebcamOutput.h src/WebcamOutput.cpp)
+        src/MainWindow.cpp
+        include/WebcamOutput.h
+        src/WebcamOutput.cpp
+        include/ImageEffects.h
+        src/ImageEffects.cpp)
 
 target_link_libraries(opencv_lab ${OPENGL_LIBRARIES} glfw GLEW ${OpenCV_LIBS} )
 

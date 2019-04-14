@@ -31,6 +31,7 @@ void error_callback(int error, const char* description);
 class MainWindow {
 private:
     GLFWwindow *win;
+    WebcamOutput::EffectSettings settings;
     int width = 0, height = 0;
     struct nk_context *ctx;
 public:

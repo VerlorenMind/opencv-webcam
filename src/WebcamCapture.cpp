@@ -1,9 +1,10 @@
 #include "WebcamCapture.h"
+#include "Logger.h"
 
 WebcamCapture::WebcamCapture() {
     capture.open(0);
     if(!capture.isOpened()) {
-        std::cerr << "Can't open webcam feed!" <<std::endl;
+        logger.write("Can't open webcam feed!\n");
     }
 }
 
